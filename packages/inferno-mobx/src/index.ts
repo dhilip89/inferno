@@ -10,6 +10,7 @@ import {
   trackComponents,
   useStaticRendering
 } from "./makeReactive";
+import * as propTypes from "./propTypes";
 import Provider from "./Provider";
 import EventEmitter from "./utils/EventEmitter";
 
@@ -34,5 +35,7 @@ export {
   inject,
   renderReporter,
   trackComponents,
-  useStaticRendering
+  useStaticRendering,
+  propTypes,
+  propTypes as PropTypes
 };

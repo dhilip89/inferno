@@ -2,44 +2,30 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { VNode } from "inferno";
-import createRoutes, { IPlainRouteConfig } from "./createRoutes";
-import doAllAsyncBefore from "./doAllAsyncBefore";
-import IndexLink from "./IndexLink";
-import IndexRoute from "./IndexRoute";
-import Link from "./Link";
-import match from "./match";
-import Redirect from "./Redirect";
-import Route from "./Route";
+import StaticRouter from "./StaticRouter";
+import BrowserRouter from "./BrowserRouter";
 import Router from "./Router";
-import RouterContext from "./RouterContext";
+import Route from "./Route";
+import Switch from "./Switch";
+import IndexLink from "./IndexLink";
+import Link from "./Link";
 
 export {
-  IndexLink,
-  Redirect as IndexRedirect,
-  IndexRoute,
-  IPlainRouteConfig,
-  Link,
-  Redirect,
-  Route,
+  StaticRouter,
+  BrowserRouter,
   Router,
-  RouterContext,
-  VNode,
-  createRoutes,
-  doAllAsyncBefore,
-  match
+  Route,
+  Switch,
+  IndexLink,
+  Link
 };
 
 export default {
-  IndexLink,
-  IndexRedirect: Redirect,
-  IndexRoute,
-  Link,
-  Redirect,
-  Route,
+  StaticRouter,
+  BrowserRouter,
   Router,
-  RouterContext,
-  createRoutes,
-  doAllAsyncBefore,
-  match
+  Route,
+  Switch,
+  IndexLink,
+  Link
 };
