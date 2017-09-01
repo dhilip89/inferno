@@ -1,6 +1,11 @@
+/**
+ * @module Inferno-Router
+ */ /** TypeDoc Comment */
+
+import { cloneVNode } from "inferno";
 import Component from "inferno-component";
 import createElement from "inferno-create-element";
-import { assert } from './utils';
+import { warning } from './utils';
 import { childrenOnly, childrenCount } from "./utils";
 import matchPath from './matchPath'
 
@@ -58,7 +63,7 @@ class Route extends Component<IRouteProps, any> {
     if (computedMatch)
       return computedMatch; // <Switch> already computed the match for us
 
-    assert(
+    warning(
       router,
       'You should not use <Route> or withRouter() outside a <Router>'
     );
@@ -70,29 +75,29 @@ class Route extends Component<IRouteProps, any> {
   }
 
   componentWillMount() {
-    assert(
+    warning(
       !(this.props.component && this.props.render),
       'You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored'
     );
 
-    assert(
+    warning(
       !(this.props.component && this.props.children && !isEmptyChildren(this.props.children)),
       'You should not use <Route component> and <Route children> in the same route; <Route children> will be ignored'
     );
 
-    assert(
+    warning(
       !(this.props.render && this.props.children && !isEmptyChildren(this.props.children)),
       'You should not use <Route render> and <Route children> in the same route; <Route children> will be ignored'
     )
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    assert(
+    warning(
       !(nextProps.location && !this.props.location),
       '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.'
     );
 
-    assert(
+    warning(
       !(!nextProps.location && this.props.location),
       '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.'
     );
@@ -109,19 +114,22 @@ class Route extends Component<IRouteProps, any> {
     const location = this.props.location || route.location;
     const props = { match, location, history, staticContext };
 
-    console.info('Route.render');
 
-    if (component)
+    if (component) {
       return match ? createElement(component, props) : null;
+    }
 
-    if (render)
+    if (render) {
       return match ? render(props) : null;
+    }
 
-    if (typeof children === 'function')
+    if (typeof children === 'function') {
       return children(props);
+    }
 
-    if (children && !isEmptyChildren(children))
+    if (children && !isEmptyChildren(children)) {
       return childrenOnly(children);
+    }
 
     return null
   }

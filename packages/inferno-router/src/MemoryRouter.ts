@@ -5,19 +5,19 @@
 import { createVNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
-import { warning } from "inferno-shared";
-import createHistory from "history/createBrowserHistory";
+import createHistory from "history/createMemoryHistory";
 import Router from "./Router";
+import { warning } from "./utils";
 
-export interface IBrowserRouterProps {
-  basename: string;
-  forceRefresh: boolean;
+export interface IMemoryRouterProps {
+  initialEntries: Array<string>;
+  initialIndex: number;
   getUserConfirmation: () => {};
   keyLength: number;
   children: Array<Component<any, any>>;
 }
 
-export default class BrowserRouter extends Component<IBrowserRouterProps, any> {
+export default class MemoryRouter extends Component<IMemoryRouterProps, any> {
   public history;
 
   constructor(props?: any, context?: any) {
@@ -26,12 +26,11 @@ export default class BrowserRouter extends Component<IBrowserRouterProps, any> {
   }
 
   componentWillMount() {
-    if (this.props.history) {
-      warning(
-        "<BrowserRouter> ignores the history prop. To use a custom history, " +
-        "use `import { Router }` instead of `import { BrowserRouter as Router }`."
-      );
-    }
+    warning(
+      !this.props.history,
+      "<MemoryRouter> ignores the history prop. To use a custom history, " +
+      "use `import { Router }` instead of `import { MemoryRouter as Router }`."
+    );
   }
 
   render() {

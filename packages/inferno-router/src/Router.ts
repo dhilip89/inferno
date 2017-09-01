@@ -5,8 +5,7 @@
 import { cloneVNode } from "inferno";
 import VNodeFlags from "inferno-vnode-flags";
 import Component from "inferno-component";
-import { warning } from "inferno-shared";
-import { childrenOnly, childrenCount } from "./utils";
+import { childrenOnly, childrenCount, warning, invariant } from "./utils";
 
 export interface IRouterProps {
   history: {
@@ -64,16 +63,17 @@ class Router extends Component<IRouterProps, any> {
   componentWillMount() {
     const { children, history } = this.props;
 
-    if (children != null && childrenCount(children) > 1) {
-      warning('A <Router> may have only one child element');
-    }
-
+    invariant(
+      children == null || childrenCount(children) === 1,
+      'A <Router> may have only one child element'
+    );
 
     // Do this here so we can setState when a <Redirect> changes the
     // location in componentWillMount. This happens e.g. when doing
     // server rendering using a <StaticRouter>.
     this.unlisten = history.listen(() => {
-      console.warn('history.location.pathname', history.location.pathname)
+
+      console.warn(history.location.pathname)
       this.setState({
         match: this.computeMatch(history.location.pathname)
       })
@@ -81,10 +81,10 @@ class Router extends Component<IRouterProps, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.info('Router.componentWillReceiveProps');
-    if (this.props.history !== nextProps.history) {
-      warning('You cannot change <Router history>');
-    }
+    warning(
+      this.props.history === nextProps.history,
+      'You cannot change <Router history>'
+    );
   }
 
   componentWillUnmount() {
@@ -92,10 +92,13 @@ class Router extends Component<IRouterProps, any> {
   }
 
   render() {
-    console.info('Router.render');
     const { children } = this.props;
-    //return children ? childrenOnly(children) : null;
-    return cloneVNode(children ? childrenOnly(children) : null);
+
+    // below fixes SwitchMount tests but breaks Switch
+    return children ? childrenOnly(children) : null;
+
+    // below fixes Switch tests but breaks SwitchMount
+    //return cloneVNode(children ? childrenOnly(children) : null);
   }
 }
 

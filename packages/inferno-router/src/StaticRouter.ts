@@ -5,10 +5,9 @@
 import { createVNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
-import { warning } from "inferno-shared";
 import { addLeadingSlash, createPath, parsePath } from "history/PathUtils";
 import Router from "./Router";
-import { assert } from "./utils";
+import { warning, invariant } from "./utils";
 
 const noop = () => {};
 
@@ -53,8 +52,8 @@ export default class StaticRouter extends Component<IStaticRouterProps, any> {
   handleBlock = () => noop;
 
   componentWillMount() {
-    assert(
-      !this.props.history,
+    warning(
+      this.props.history,
       "<StaticRouter> ignores the history prop. To use a custom history, " +
         "use `import { Router }` instead of `import { StaticRouter as Router }`."
     );
@@ -111,13 +110,6 @@ function stripBasename(basename, location) {
     ...location,
     pathname: location.pathname.substr(base.length)
   };
-}
-
-function invariant(test, error, extras) {
-  if (!test) {
-    console.error(extras);
-    throw new Error(error);
-  }
 }
 
 function createLocation(location) {

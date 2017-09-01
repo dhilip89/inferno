@@ -5,7 +5,8 @@
 import Component from "inferno-component";
 import { createVNode } from "inferno";
 import VNodeFlags from "inferno-vnode-flags";
-import { assert } from './utils';
+//import invariant = require('invariant');
+import { invariant } from "./utils";
 
 const isModifiedEvent = (event) =>
   !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
@@ -50,7 +51,7 @@ export default class Link extends Component<ILinkProps, any> {
   render() {
     const { replace, className, to, innerRef, ...props } = this.props; // eslint-disable-line no-unused-vars
 
-    assert(
+    invariant(
       this.context.router,
       'You should not use <Link> outside a <Router>'
     );
