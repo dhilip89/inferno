@@ -5,29 +5,29 @@
 import { cloneVNode } from "inferno";
 import Component from "inferno-component";
 import createElement from "inferno-create-element";
-import { warning } from './utils';
+import { warning } from "./utils";
 import { childrenOnly, childrenCount } from "./utils";
-import matchPath from './matchPath'
+import matchPath from "./matchPath";
 
-const isEmptyChildren = (children) => childrenCount(children) === 0;
+const isEmptyChildren = children => childrenCount(children) === 0;
 
 export interface IRouteProps {
-  computedMatch: any, // private, from <Switch>
-  path: any,
-  exact: any,
-  strict: any,
-  sensitive: any,
-  component: any,
-  render: any,
-  location: any,
-  children: Array<Component<any, any>>
+  computedMatch: any; // private, from <Switch>
+  path: any;
+  exact: any;
+  strict: any;
+  sensitive: any;
+  component: any;
+  render: any;
+  location: any;
+  children: Array<Component<any, any>>;
 }
 
 /**
  * The public API for matching a single path and rendering.
  */
 class Route extends Component<IRouteProps, any> {
-/*
+  /*
   static contextTypes = {
     router: {
       history: {},
@@ -49,7 +49,7 @@ class Route extends Component<IRouteProps, any> {
           match: this.state.match
         }
       }
-    }
+    };
   }
 
   constructor(props?: any, context?: any) {
@@ -59,36 +59,48 @@ class Route extends Component<IRouteProps, any> {
     };
   }
 
-  computeMatch({ computedMatch, location, path, strict, exact, sensitive }, router) {
-    if (computedMatch)
-      return computedMatch; // <Switch> already computed the match for us
+  computeMatch(
+    { computedMatch, location, path, strict, exact, sensitive },
+    router
+  ) {
+    if (computedMatch) return computedMatch; // <Switch> already computed the match for us
 
     warning(
       router,
-      'You should not use <Route> or withRouter() outside a <Router>'
+      "You should not use <Route> or withRouter() outside a <Router>"
     );
 
     const { route } = router;
     const pathname = (location || route.location).pathname;
 
-    return path ? matchPath(pathname, { path, strict, exact, sensitive }) : route.match
+    return path
+      ? matchPath(pathname, { path, strict, exact, sensitive })
+      : route.match;
   }
 
   componentWillMount() {
     warning(
       !(this.props.component && this.props.render),
-      'You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored'
+      "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored"
     );
 
     warning(
-      !(this.props.component && this.props.children && !isEmptyChildren(this.props.children)),
-      'You should not use <Route component> and <Route children> in the same route; <Route children> will be ignored'
+      !(
+        this.props.component &&
+        this.props.children &&
+        !isEmptyChildren(this.props.children)
+      ),
+      "You should not use <Route component> and <Route children> in the same route; <Route children> will be ignored"
     );
 
     warning(
-      !(this.props.render && this.props.children && !isEmptyChildren(this.props.children)),
-      'You should not use <Route render> and <Route children> in the same route; <Route children> will be ignored'
-    )
+      !(
+        this.props.render &&
+        this.props.children &&
+        !isEmptyChildren(this.props.children)
+      ),
+      "You should not use <Route render> and <Route children> in the same route; <Route children> will be ignored"
+    );
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -104,16 +116,16 @@ class Route extends Component<IRouteProps, any> {
 
     this.setState({
       match: this.computeMatch(nextProps, nextContext.router)
-    })
+    });
   }
 
   render() {
+    console.info("--Route.render");
     const { match } = this.state;
     const { children, component, render } = this.props;
     const { history, route, staticContext } = this.context.router;
     const location = this.props.location || route.location;
     const props = { match, location, history, staticContext };
-
 
     if (component) {
       return match ? createElement(component, props) : null;
@@ -123,7 +135,7 @@ class Route extends Component<IRouteProps, any> {
       return match ? render(props) : null;
     }
 
-    if (typeof children === 'function') {
+    if (typeof children === "function") {
       return children(props);
     }
 
@@ -131,8 +143,8 @@ class Route extends Component<IRouteProps, any> {
       return childrenOnly(children);
     }
 
-    return null
+    return null;
   }
 }
 
-export default Route
+export default Route;

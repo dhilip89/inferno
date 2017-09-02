@@ -6,7 +6,7 @@
     }
   },
   "packages": [
-    "packages/*"
+    "packages/inferno-router"
   ],
   "version": "3.8.2"
 }

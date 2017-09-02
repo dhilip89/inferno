@@ -29,11 +29,12 @@ export default class MemoryRouter extends Component<IMemoryRouterProps, any> {
     warning(
       !this.props.history,
       "<MemoryRouter> ignores the history prop. To use a custom history, " +
-      "use `import { Router }` instead of `import { MemoryRouter as Router }`."
+        "use `import { Router }` instead of `import { MemoryRouter as Router }`."
     );
   }
 
   render() {
+    console.info("--MemoryRouter.render");
     return createVNode(VNodeFlags.ComponentClass, Router, null, null, {
       children: this.props.children,
       history: this.history

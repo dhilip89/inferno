@@ -16,7 +16,6 @@ export interface ISwitchProps {
  * The public API for rendering the first <Route> that matches.
  */
 export default class Switch extends Component<ISwitchProps, any> {
-
   componentWillMount() {
     invariant(
       this.context.router,
@@ -39,11 +38,12 @@ export default class Switch extends Component<ISwitchProps, any> {
   render() {
     const { route } = this.context.router;
     const location = this.props.location || route.location;
-    const children = Array.isArray(this.props.children) ? this.props.children : [this.props.children]
+    const children = Array.isArray(this.props.children)
+      ? this.props.children
+      : [this.props.children];
 
     let match, child;
     children.forEach(element => {
-
       //if (!React.isValidElement(element)) return
 
       const { path: pathProp, exact, strict, sensitive, from } = element.props;
@@ -57,6 +57,7 @@ export default class Switch extends Component<ISwitchProps, any> {
       }
     });
 
+    console.info("--Switch.render");
     return match ? cloneVNode(child, { location, computedMatch: match }) : null;
     //return match ? cloneVNode(child) : null;
   }

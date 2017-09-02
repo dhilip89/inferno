@@ -2,53 +2,45 @@ import { render } from "inferno";
 import Component from "inferno-component";
 import { innerHTML } from "inferno-utils";
 import { Router, Switch, Route, Redirect } from "inferno-router";
-import createHistory from 'history/createMemoryHistory'
+import createHistory from "history/createMemoryHistory";
 
 // @TODO: Finish this
-describe('A <Switch>', () => {
-  it('does not remount a <Route>', () => {
-    const node = document.createElement('div')
+describe.skip("A <Switch>", () => {
+  it("does not remount a <Route>", () => {
+    const node = document.createElement("div");
 
-    let mountCount = 0
+    let mountCount = 0;
 
     class App extends Component {
       componentWillMount() {
-        mountCount++
+        mountCount++;
       }
 
       render() {
-        return <div/>
+        return <div />;
       }
     }
 
     const history = createHistory({
-      initialEntries: [ '/one' ]
-    })
-    /*
-    render((
+      initialEntries: ["/one"]
+    });
+
+    render(
       <Router history={history}>
         <Switch>
-          <Route path="/one" component={App}/>
-          <Route path="/two" component={App}/>
+          <Route path="/one" component={App} />
+          <Route path="/two" component={App} />
         </Switch>
-      </Router>
-    ), node)*/
+      </Router>,
+      node
+    );
 
-    render((
-      <Router history={history}>
-        <div>
-          <Route path="/one" component={App}/>
-          <Route path="/two" component={App}/>
-        </div>
-      </Router>
-    ), node)
+    expect(mountCount).toBe(1);
+    history.push("/two");
 
-    expect(mountCount).toBe(1)
-    history.push('/two')
+    expect(mountCount).toBe(1);
+    history.push("/one");
 
-    expect(mountCount).toBe(1)
-    history.push('/one')
-
-    expect(mountCount).toBe(1)
-  })
-})
+    expect(mountCount).toBe(1);
+  });
+});

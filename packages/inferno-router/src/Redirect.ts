@@ -5,44 +5,41 @@
 import { createVNode } from "inferno";
 import Component from "inferno-component";
 import { warning } from "inferno-shared";
-import { createLocation, locationsAreEqual } from 'history'
+import { createLocation, locationsAreEqual } from "history";
 import { invariant } from "./utils";
 
 export default class Redirect extends Component<any, any> {
-
-  state = {
-    location: null
-  };
-
   isStatic() {
-    return this.context.router && this.context.router.staticContext
+    console.warn(this.context.router);
+    return this.context.router && this.context.router.staticContext;
   }
 
   componentWillMount() {
     invariant(
       this.context.router,
-      'You should not use <Redirect> outside a <Router>'
+      "You should not use <Redirect> outside a <Router>"
     );
 
-    if (this.isStatic())
-      this.perform()
+    if (this.isStatic()) this.perform();
   }
 
   componentDidMount() {
-    if (!this.isStatic())
-      this.perform()
+    if (!this.isStatic()) this.perform();
   }
 
   componentDidUpdate(prevProps) {
+    console.info("--componentDidUpdate");
     const prevTo = createLocation(prevProps.to);
     const nextTo = createLocation(this.props.to);
 
     if (locationsAreEqual(prevTo, nextTo)) {
-      warning(`You tried to redirect to the same route you're currently on: "${nextTo.pathname}${nextTo.search}"`);
-      return
+      warning(
+        `You tried to redirect to the same route you're currently on: "${nextTo.pathname}${nextTo.search}"`
+      );
+      return;
     }
 
-    this.perform()
+    this.perform();
   }
 
   perform() {
@@ -50,13 +47,15 @@ export default class Redirect extends Component<any, any> {
     const { push = false, to } = this.props;
 
     if (push) {
-      history.push(to)
+      history.push(to);
     } else {
-      history.replace(to)
+      history.replace(to);
     }
+    console.info("--PUSH");
   }
 
   render() {
-    return null
+    console.info("--Redirect.render", this.props.to);
+    return null;
   }
 }

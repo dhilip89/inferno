@@ -9,19 +9,18 @@ import { childrenOnly, childrenCount, warning, invariant } from "./utils";
 
 export interface IRouterProps {
   history: {
-    listen: (callback: any) => {},
+    listen: (callback: any) => {};
     location: {
-      pathname: string
-    }
-  },
-  children: Array<Component<any, any>>
+      pathname: string;
+    };
+  };
+  children: Array<Component<any, any>>;
 }
 
 /**
  * The public API for putting history on context.
  */
 class Router extends Component<IRouterProps, any> {
-
   public unlisten;
   /*public static contextTypes = {
     router: () => {}
@@ -48,16 +47,16 @@ class Router extends Component<IRouterProps, any> {
           match: this.state.match
         }
       }
-    }
+    };
   }
 
   computeMatch(pathname) {
     return {
-      path: '/',
-      url: '/',
+      path: "/",
+      url: "/",
       params: {},
-      isExact: pathname === '/'
-    }
+      isExact: pathname === "/"
+    };
   }
 
   componentWillMount() {
@@ -65,25 +64,24 @@ class Router extends Component<IRouterProps, any> {
 
     invariant(
       children == null || childrenCount(children) === 1,
-      'A <Router> may have only one child element'
+      "A <Router> may have only one child element"
     );
 
     // Do this here so we can setState when a <Redirect> changes the
     // location in componentWillMount. This happens e.g. when doing
     // server rendering using a <StaticRouter>.
     this.unlisten = history.listen(() => {
-
-      console.warn(history.location.pathname)
+      console.info("--setState match");
       this.setState({
         match: this.computeMatch(history.location.pathname)
-      })
-    })
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     warning(
       this.props.history === nextProps.history,
-      'You cannot change <Router history>'
+      "You cannot change <Router history>"
     );
   }
 
@@ -91,15 +89,14 @@ class Router extends Component<IRouterProps, any> {
     this.unlisten();
   }
 
-  render() {
-    const { children } = this.props;
-
+  render({ children }) {
+    console.info("--Router.render", children);
     // below fixes SwitchMount tests but breaks Switch
     return children ? childrenOnly(children) : null;
 
-    // below fixes Switch tests but breaks SwitchMount
+    // below fixes most tests but breaks SwitchMount
     //return cloneVNode(children ? childrenOnly(children) : null);
   }
 }
 
-export default Router
+export default Router;

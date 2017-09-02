@@ -33,13 +33,13 @@ module.exports = function(config) {
       require.resolve("babel-polyfill/dist/polyfill"),
       "./scripts/test/jasmine-polyfill.js",
       "./scripts/test/globals.js",
-      "./packages/*/__tests__/*",
-      "./packages/*/__tests__/**/*"
+      "./packages/inferno-router/__tests__/*",
+      "./packages/inferno-router/__tests__/**/*"
     ],
 
     preprocessors: {
-      "./packages/*/__tests__/**/*": ["webpack", "sourcemap"],
-      "./packages/*/__tests__/*": ["webpack", "sourcemap"]
+      "./packages/inferno-router/__tests__/**/*": ["webpack", "sourcemap"],
+      "./packages/inferno-router/__tests__/*": ["webpack", "sourcemap"]
     },
 
     reporters: [process.env.CI ? "failed" : "progress"],
@@ -49,7 +49,7 @@ module.exports = function(config) {
       terminal: false
     },
     colors: true,
-    singleRun: true,
+    singleRun: false,
     autoWatch: false,
     concurrency: 1,
 

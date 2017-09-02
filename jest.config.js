@@ -53,10 +53,10 @@ module.exports = {
   rootDir: __dirname,
   setupFiles: ["<rootDir>/scripts/test/requestAnimationFrame.ts"],
   testMatch: [
-    "<rootDir>/packages/*/__tests__/**/*spec.js?(x)",
-    "<rootDir>/packages/*/__tests__/**/*spec.ts?(x)",
-    "<rootDir>/packages/*/__tests__/**/*spec.browser.js?(x)",
-    "<rootDir>/packages/*/__tests__/**/*spec.browser.ts?(x)"
+    "<rootDir>/packages/inferno-router/__tests__/**/*spec.js?(x)",
+    "<rootDir>/packages/inferno-router/__tests__/**/*spec.ts?(x)",
+    "<rootDir>/packages/inferno-router/__tests__/**/*spec.browser.js?(x)",
+    "<rootDir>/packages/inferno-router/__tests__/**/*spec.browser.ts?(x)"
   ],
   transform: {
     "^.+\\.jsx?$": "babel-jest",
