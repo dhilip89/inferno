@@ -2,7 +2,7 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { createVNode } from "inferno";
+import { createVNode, VNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
 import { warning } from "inferno-shared";
@@ -34,7 +34,7 @@ export default class BrowserRouter extends Component<IBrowserRouterProps, any> {
     }
   }
 
-  render() {
+  render(): VNode {
     return createVNode(VNodeFlags.ComponentClass, Router, null, null, {
       children: this.props.children,
       history: this.history

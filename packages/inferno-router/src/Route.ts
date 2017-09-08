@@ -2,7 +2,6 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { cloneVNode } from "inferno";
 import Component from "inferno-component";
 import createElement from "inferno-create-element";
 import { warning } from "./utils";
@@ -120,7 +119,7 @@ class Route extends Component<IRouteProps, any> {
   }
 
   render() {
-    console.info("--Route.render");
+    // console.info("--Route.render");
     const { match } = this.state;
     const { children, component, render } = this.props;
     const { history, route, staticContext } = this.context.router;

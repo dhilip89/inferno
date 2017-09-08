@@ -2,7 +2,6 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { createVNode } from "inferno";
 import Component from "inferno-component";
 import { warning } from "inferno-shared";
 import { createLocation, locationsAreEqual } from "history";
@@ -10,7 +9,7 @@ import { invariant } from "./utils";
 
 export default class Redirect extends Component<any, any> {
   isStatic() {
-    console.warn(this.context.router);
+    // console.warn(this.context.router);
     return this.context.router && this.context.router.staticContext;
   }
 
@@ -28,7 +27,7 @@ export default class Redirect extends Component<any, any> {
   }
 
   componentDidUpdate(prevProps) {
-    console.info("--componentDidUpdate");
+    // console.info("--componentDidUpdate");
     const prevTo = createLocation(prevProps.to);
     const nextTo = createLocation(this.props.to);
 
@@ -51,11 +50,11 @@ export default class Redirect extends Component<any, any> {
     } else {
       history.replace(to);
     }
-    console.info("--PUSH");
+    // console.info("--PUSH");
   }
 
   render() {
-    console.info("--Redirect.render", this.props.to);
+    // console.info("--Redirect.render", this.props.to);
     return null;
   }
 }

@@ -3,7 +3,7 @@
  */ /** TypeDoc Comment */
 
 import Component from "inferno-component";
-import { createVNode } from "inferno";
+import { createVNode, VNode } from "inferno";
 import VNodeFlags from "inferno-vnode-flags";
 //import invariant = require('invariant');
 import { invariant } from "./utils";
@@ -48,7 +48,7 @@ export default class Link extends Component<ILinkProps, any> {
     }
   };
 
-  render() {
+  render(): VNode {
     const { replace, className, to, innerRef, ...props } = this.props; // eslint-disable-line no-unused-vars
 
     invariant(

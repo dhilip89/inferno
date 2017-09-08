@@ -2,7 +2,7 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { createVNode } from "inferno";
+import { createVNode, VNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
 import { addLeadingSlash, createPath, parsePath } from "history/PathUtils";
@@ -53,13 +53,13 @@ export default class StaticRouter extends Component<IStaticRouterProps, any> {
 
   componentWillMount() {
     warning(
-      this.props.history,
+      !this.props.history,
       "<StaticRouter> ignores the history prop. To use a custom history, " +
         "use `import { Router }` instead of `import { StaticRouter as Router }`."
     );
   }
 
-  render() {
+  render(): VNode {
     const { basename, context, location, ...props } = this.props;
 
     const history = {

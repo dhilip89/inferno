@@ -2,8 +2,7 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { cloneVNode } from "inferno";
-import VNodeFlags from "inferno-vnode-flags";
+import { cloneVNode, VNode } from "inferno";
 import Component from "inferno-component";
 import { childrenOnly, childrenCount, warning, invariant } from "./utils";
 
@@ -22,15 +21,15 @@ export interface IRouterProps {
  */
 class Router extends Component<IRouterProps, any> {
   public unlisten;
-  /*public static contextTypes = {
+  /*static contextTypes = {
     router: () => {}
   };
 
-  public static childContextTypes = {
+  static childContextTypes = {
     router: () => {}
   };*/
 
-  constructor(props?: any, context?: any) {
+  constructor(props: IRouterProps, context?: any) {
     super(props, context);
     this.state = {
       match: this.computeMatch(props.history.location.pathname)
@@ -71,7 +70,7 @@ class Router extends Component<IRouterProps, any> {
     // location in componentWillMount. This happens e.g. when doing
     // server rendering using a <StaticRouter>.
     this.unlisten = history.listen(() => {
-      console.info("--setState match");
+      // console.info("--setState match", history.location.pathname);
       this.setState({
         match: this.computeMatch(history.location.pathname)
       });
@@ -89,13 +88,14 @@ class Router extends Component<IRouterProps, any> {
     this.unlisten();
   }
 
-  render({ children }) {
-    console.info("--Router.render", children);
+  render(): VNode {
+    const { children } = this.props;
+    // console.info("--Router.render", children);
     // below fixes SwitchMount tests but breaks Switch
-    return children ? childrenOnly(children) : null;
+    //return children ? childrenOnly(children) : null;
 
     // below fixes most tests but breaks SwitchMount
-    //return cloneVNode(children ? childrenOnly(children) : null);
+    return cloneVNode(children ? childrenOnly(children) : null);
   }
 }
 

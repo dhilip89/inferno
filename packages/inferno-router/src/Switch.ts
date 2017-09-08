@@ -2,7 +2,7 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { cloneVNode } from "inferno";
+import { cloneVNode, VNode } from "inferno";
 import Component from "inferno-component";
 import matchPath from "./matchPath";
 import { warning, invariant } from "./utils";
@@ -35,7 +35,7 @@ export default class Switch extends Component<ISwitchProps, any> {
     );
   }
 
-  render() {
+  render(): VNode | null {
     const { route } = this.context.router;
     const location = this.props.location || route.location;
     const children = Array.isArray(this.props.children)
@@ -57,7 +57,7 @@ export default class Switch extends Component<ISwitchProps, any> {
       }
     });
 
-    console.info("--Switch.render");
+    // console.info("--Switch.render");
     return match ? cloneVNode(child, { location, computedMatch: match }) : null;
     //return match ? cloneVNode(child) : null;
   }

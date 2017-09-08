@@ -2,7 +2,7 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { createVNode } from "inferno";
+import { createVNode, VNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
 import createHistory from "history/createMemoryHistory";
@@ -33,8 +33,8 @@ export default class MemoryRouter extends Component<IMemoryRouterProps, any> {
     );
   }
 
-  render() {
-    console.info("--MemoryRouter.render");
+  render(): VNode {
+    // console.info("--MemoryRouter.render");
     return createVNode(VNodeFlags.ComponentClass, Router, null, null, {
       children: this.props.children,
       history: this.history

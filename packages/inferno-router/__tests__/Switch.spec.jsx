@@ -4,7 +4,7 @@ import { MemoryRouter, Switch, Route, Redirect } from "inferno-router";
 
 // @TODO: Finish this
 describe("Switch (jsx)", () => {
-  /*it('renders the first <Route> that matches the URL', () => {
+  it('renders the first <Route> that matches the URL', () => {
     const node = document.createElement('div')
 
     render((
@@ -21,7 +21,7 @@ describe("Switch (jsx)", () => {
     ), node)
 
     expect(node.innerHTML).toMatch(/one/)
-  })*/
+  })
 
   it("renders the first <Redirect from> that matches the URL", () => {
     const node = document.createElement("div");
@@ -40,7 +40,7 @@ describe("Switch (jsx)", () => {
 
     expect(node.innerHTML).toMatch(/two/);
   });
-  /*
+
   it('does not render a second <Route> or <Redirect> that also matches the URL', () => {
     const node = document.createElement('div')
 
@@ -96,7 +96,7 @@ describe("Switch (jsx)", () => {
     expect(node.innerHTML).not.toContain('cup')
     expect(node.innerHTML).toContain('bub')
   })
-*/
+
   // @TODO: Fix this
   it.skip("handles subsequent redirects", () => {
     const node = document.createElement("div");
@@ -121,7 +121,7 @@ describe("Switch (jsx)", () => {
 
     expect(node.innerHTML).toContain("three");
   });
-  /*
+
   it('warns when redirecting to same route, both strings', () => {
     const node = document.createElement('div')
     let redirected = false
@@ -215,7 +215,7 @@ describe("Switch (jsx)", () => {
     expect(console.warn.calls.mostRecent().args[0]).toContain('/one?utm=1')
     //expect(console.error.calls.argsFor(0)[0]).toMatch(/Warning:.*"\/one\?utm=1"/)
   })
-*/
+
   // @TODO: Fix this
   it.skip(
     "does NOT warn when redirecting to same route with different `search`",
@@ -255,7 +255,7 @@ describe("Switch (jsx)", () => {
     }
   );
 
-  it.skip("handles comments", () => {
+  it("handles comments", () => {
     const node = document.createElement("div");
 
     render(
@@ -273,7 +273,7 @@ describe("Switch (jsx)", () => {
     expect(node.innerHTML).toContain("cup");
   });
 
-  /* it('renders with non-element children', () => {
+  it('renders with non-element children', () => {
     const node = document.createElement('div')
 
     render((
@@ -303,10 +303,10 @@ describe("Switch (jsx)", () => {
         </Switch>
       ), node)
     }).toThrowError(/You should not use <Switch> outside a <Router>/)
-  })*/
+  })
 });
 
-describe.skip("A <Switch location>", () => {
+describe("A <Switch location>", () => {
   it("can use a `location` prop instead of `router.location`", () => {
     const node = document.createElement("div");
 

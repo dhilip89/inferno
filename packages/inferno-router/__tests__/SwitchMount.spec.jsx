@@ -4,7 +4,7 @@ import { innerHTML } from "inferno-utils";
 import { Router, Switch, Route, Redirect } from "inferno-router";
 import createHistory from "history/createMemoryHistory";
 
-// @TODO: Finish this
+// @TODO: Broken test
 describe.skip("A <Switch>", () => {
   it("does not remount a <Route>", () => {
     const node = document.createElement("div");

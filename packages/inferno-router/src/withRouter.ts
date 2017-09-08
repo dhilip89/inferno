@@ -1,12 +1,12 @@
 /**
  * @module Inferno-Router
  */ /** TypeDoc Comment */
+
 import { createVNode } from "inferno";
 import Component from "inferno-component";
 import VNodeFlags from "inferno-vnode-flags";
 import hoistStatics from "hoist-non-inferno-statics";
 import Route from "./Route";
-import { Ref } from "../../inferno/src/core/VNodes";
 
 interface IRoutedComponent {
   (): any;
@@ -15,29 +15,21 @@ interface IRoutedComponent {
 }
 
 interface IWithRouterProps {
-  wrappedComponentRef: Ref;
+  wrappedComponentRef: any;
 }
-
-interface F {
-  (): any;
-  someValue: number;
-}
-
-var f = <F>function(d) {};
-f.someValue = 3;
 
 /**
  * A public higher-order component to access the imperative API
  */
-function withRouter(Component) {
+export default function withRouter(InjComponent) {
   const C = <IRoutedComponent>function(props: IWithRouterProps) {
     const { wrappedComponentRef, ...remainingProps } = props;
 
     return createVNode(VNodeFlags.ComponentClass, Route, null, null, {
       render: function(routeComponentProps) {
         return createVNode(
-          VNodeFlags.ComponentClass,
-          Component,
+          VNodeFlags.ComponentUnknown,
+          InjComponent,
           null,
           null,
           {
@@ -49,17 +41,9 @@ function withRouter(Component) {
         );
       }
     });
-    /*
-    return (
-      <Route render={routeComponentProps; => (
-          <Component {...remainingProps}; {...routeComponentProps} ref={wrappedComponentRef}/>;
-      )}/>;
-    )*/
   };
 
-  C.displayName = `withRouter(${Component.displayName || Component.name})`;
-  C.WrappedComponent = Component;
-  return hoistStatics(C, Component);
+  C.displayName = `withRouter(${InjComponent.displayName || InjComponent.name})`;
+  C.WrappedComponent = InjComponent;
+  return hoistStatics(C, InjComponent);
 }
-
-export default withRouter;

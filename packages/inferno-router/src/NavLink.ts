@@ -2,7 +2,8 @@
  * @module Inferno-Router
  */ /** TypeDoc Comment */
 
-import { createVNode } from "inferno";
+import { createVNode, VNode } from "inferno";
+//import { createVNode, VNode } from "../../inferno/src/core/VNodes";
 import VNodeFlags from "inferno-vnode-flags";
 import Route from './Route'
 import Link from './Link'
@@ -10,7 +11,7 @@ import Link from './Link'
 /**
  * A <Link> wrapper that knows if it's "active" or not.
  */
-export default (props) => {
+export default function(props): VNode {
 
   const {
     to, exact, strict, location, activeClassName = 'active', className,
